@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pedido PDF</title>
+    <style>
+
+    </style>
+</head>
+<header>
+    <div class="flex flex-row bg-gray-700 justify-between h-9 items-center ">
+        <img class="h-5 ml-2" src="https://www.controlid.com.br/assets/images/logo.png" alt="">
+        <h3 class=" text-white" >Razão Social</h3>
+        <h3 class=" text-white ml-48">Data</h3>
+        <h3 class=" text-white mr-2">Vendedor</h3>
+    </div>
+</header>
+<body class="m-1">
+  <h3 class="text-center text-lg font-semibold h-9">Faturamento</h3>
+  <hr>
+  <div class="flex flex-row justify-between pt-5 pb-5">
+      <div class="flex flex-col items-stretch">
+        <p class=""><strong class="font-medium">CNPJ: </strong><%= date.cnpj %></p>
+        <p><strong class="font-medium">Endereço: </strong><%= date.billingDistrict%>, <%= date.billingCity%> - <%= date.billingState%> - <%= date.billingCep%></p>
+        <p><strong class="font-medium">CCM: </strong><%= date.ccm %></p>
+        <p><strong class="font-medium">IE: </strong><%= date.ie %></p>
+      </div>
+        <div class="flex flex-col items-stretch">
+        <p><strong class="font-medium">Plano: </strong><%= date.customerPlan %></p>
+        <p><strong class="font-medium">Cond. pagto. produto: </strong><%= date.productPaymentTerms %></p>
+        <p><strong class="font-medium">Condição Serasa: </strong> <%= date.serasaConditions %></p>
+      </div>
+      <div class="flex flex-col items-stretch">
+        <p><strong class="font-medium">Qt. Equipamento: </strong><%= date.equipamentNumber %></p>
+        <p><strong class="font-medium">Qt. Funcionario: </strong><%= date.numberOfCollaborators %></p>
+        <p><strong class="font-medium">Data de Fundação: </strong><%= date.foundationDate %></p>
+        <p><strong class="font-medium">Fidelidade: </strong><%= date.fidelity %></p>
+      </div>
+  </div>
+  <hr>
+  <h3 class="text-center text-lg font-semibold h-9">Cobrança</h3>
+  <hr>
+  <div class="flex flex-row justify-between pt-5 pb-5">
+    <div class="flex flex-col items-stretch">
+      <p><strong class="font-medium">CNPJ: </strong><%= date.cnpj %></p>
+      <p><strong class="font-medium">Razão Social: </strong><%= date.corporateName %></p>
+      <p><strong class="font-medium">Endereço: </strong><%= date.billingDistrict%>, <%= date.billingCity%> - <%= date.billingState%> - <%= date.billingCep%></p>
+    </div>
+    <div class="flex flex-col items-stretch">
+      <p><strong class="font-medium">CCM: </strong><%= date.ccm %></p>
+      <p><strong class="font-medium">IE: </strong><%= date.ie %></p>
+      <p><strong class="font-medium">Nome: </strong><%= date.nomeDeCobranca%></p>
+    </div>
+    <div class="flex flex-col items-stretch">
+      <p><strong class="font-medium">E-mail: </strong><%= date.emailDeCobranca%></p>
+      <p><strong class="font-medium">Tel. Fixo: </strong> Telefone Fixo</p>
+      <p><strong class="font-medium">Celular: </strong><%= date.celularDeCobranca%></p>
+    </div>
+  </div>
+  <hr>
+  <h3 class="text-center text-lg font-semibold h-9">Instalações</h3>
+  <hr>
+  <div class="flex flex-row justify-between divide-x pt-5 pb-5">
+    <div class="flex flex-col items-stretch">
+      <p><strong class="font-medium">Celular: </strong><%= date.instalationCnpj %></p>
+      <p><strong class="font-medium">Celular: </strong>Razao Social</p>
+      <p><strong class="font-medium">Celular: </strong><%= date.Addresses.address%>, <%= date.Addresses.addressNumber%> - <%= date.Addresses.district%> - <%= date.Addresses.city%> - <%= date.Addresses.state%> - <%= date.Addresses.country%> - <%= date.Addresses.cep%></p>
+    </div>
+    <div class="flex flex-col items-stretch">
+      <p><strong class="font-medium">CCM: </strong>Isento</p>
+      <p><strong class="font-medium">IE: </strong>IE</p>
+      <p><strong class="font-medium">Nome: </strong><%= date.clientRequests.clientName%></p>
+    </div>
+    <div class="flex flex-col items-stretch">
+      <p><strong class="font-medium">E-mail: </strong><%= date.clientRequests.clientEmail%></p>
+      <p><strong class="font-medium">Tel. Fixo: </strong> <%= date.clientRequests.clientTelephone%></p>
+      <p><strong class="font-medium">Celular: </strong>1198989898</p>
+    </div>
+  </div>
+  <hr >
+  <div class="obs">
+    <h4 class="text-base font-semibold mt-5">Observações para NFiscal</h4>
+    <table class="border-collapse table-auto">
+      <tr>
+        <td class="border p-5 w-screen "><%= date.noteForInvoice%></td>
+      </tr>
+    </table>
+    <h4 class="text-base font-semibold mt-5">Observações Financeiro</h4>
+    <table class="border-collapse">
+      <tr >
+        <td class="border p-5 w-screen "><%= date.financialObservation%></td>
+      </tr>
+    </table>
+    <h4 class="text-base font-semibold mt-5">Observações de Instalações</h4>
+    <table class="border-collapse">
+      <tr><td class="border p-5 w-screen  "><%= date.observationInstallation%></td></tr>
+    </table>
+  </div>
+  <div class="div-product border mt-5">
+    <table class="table-auto border-collapse ">
+      <tr class="border h-11">
+        <th class="font-medium border">Codigo</th>
+        <th class="font-medium border">Descrição Comercial</th>
+        <th class="font-medium border">Quantidade</th>
+        <th class="font-medium border">Valor unitario de Compra</th>
+        <th class="font-medium border">Valor total de compra</th>
+        <th class="font-medium border">Valor unitario Mensal</th>
+        <th class="font-medium border">Valor total mensal</th>
+      </tr>
+      <% date.productPedidos.forEach((product, index) => { %>
+        <tr>
+          <td class="font-normal border"><%= product.productCode%></td>
+          <td class="font-normal border"><%= product.commercialDescription%></td>
+          <td class="font-normal border"><%= product.amountOfProduct %></td>
+          <td class="font-normal border">R$ <%= product.unitPurchasePrice %></td>
+          <td class="font-normal border">R$ <%= product.totalPurchaseAmount %></td>
+          <td class="font-normal border">R$ <%= product.monthlyUnitValue %></td>
+          <td class="font-normal border">R$ <%= product.totalMonthlyAmount%></td>
+        </tr>
+      <% }) %>
+    </table>
+  </div>
+</body>
+</html>
