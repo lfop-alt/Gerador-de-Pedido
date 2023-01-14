@@ -42,46 +42,50 @@
   <hr>
   <h3 class="text-center text-lg font-semibold h-9">Cobrança</h3>
   <hr>
-  <div class="flex flex-row justify-between pt-5 pb-5">
-    <div class="flex flex-col items-stretch">
-      <p><strong class="font-medium">CNPJ: </strong><%= date.cnpj %></p>
-      <p><strong class="font-medium">Razão Social: </strong><%= date.corporateName %></p>
-      <p><strong class="font-medium">Endereço: </strong><%= date.billingDistrict%>, <%= date.billingCity%> - <%= date.billingState%> - <%= date.billingCep%></p>
+  <% date.Cobrancas.forEach((cobranca, index) => { %>
+    <div class="flex flex-row justify-between pt-5 pb-5">
+      <div class="flex flex-col items-stretch">
+        <p><strong class="font-medium">CNPJ: </strong><%= cobranca.cnpjCobranca %></p>
+        <p><strong class="font-medium">Razão Social: </strong><%= cobranca.corporateNameCobranca %></p>
+        <p><strong class="font-medium">Endereço: </strong><%= cobranca.AddressCobranca%></p>
+      </div>
+      <div class="flex flex-col items-stretch">
+        <p><strong class="font-medium">CCM: </strong><%= cobranca.ccmCobranca %></p>
+        <p><strong class="font-medium">IE: </strong><%= cobranca.ieCobranca %></p>
+        <p><strong class="font-medium">Nome: </strong><%= cobranca.nameCobranca%></p>
+      </div>
+      <div class="flex flex-col items-stretch">
+        <p><strong class="font-medium">E-mail: </strong><%= cobranca.emailCobranca%></p>
+        <p><strong class="font-medium">Tel. Fixo: </strong> cobranca.telFixoCobranca</p>
+        <p><strong class="font-medium">Celular: </strong><%= cobranca.celularCobranca%></p>
+      </div>
     </div>
-    <div class="flex flex-col items-stretch">
-      <p><strong class="font-medium">CCM: </strong><%= date.ccm %></p>
-      <p><strong class="font-medium">IE: </strong><%= date.ie %></p>
-      <p><strong class="font-medium">Nome: </strong><%= date.nomeDeCobranca%></p>
-    </div>
-    <div class="flex flex-col items-stretch">
-      <p><strong class="font-medium">E-mail: </strong><%= date.emailDeCobranca%></p>
-      <p><strong class="font-medium">Tel. Fixo: </strong> Telefone Fixo</p>
-      <p><strong class="font-medium">Celular: </strong><%= date.celularDeCobranca%></p>
-    </div>
-  </div>
+  <% }) %>
   <hr>
   <h3 class="text-center text-lg font-semibold h-9">Instalações</h3>
   <hr>
-  <div class="flex flex-row justify-between divide-x pt-5 pb-5">
-    <div class="flex flex-col items-stretch">
-      <p><strong class="font-medium">Celular: </strong><%= date.instalationCnpj %></p>
-      <p><strong class="font-medium">Celular: </strong>Razao Social</p>
-      <p><strong class="font-medium">Celular: </strong><%= date.Addresses.address%>, <%= date.Addresses.addressNumber%> - <%= date.Addresses.district%> - <%= date.Addresses.city%> - <%= date.Addresses.state%> - <%= date.Addresses.country%> - <%= date.Addresses.cep%></p>
+  <% date.Installations.forEach((install, index) => { %>
+    <div class="flex flex-row justify-between divide-x pt-5 pb-5">
+      <div class="flex flex-col items-stretch">
+        <p><strong class="font-medium">CNPJ: </strong><%= install.instalationCnpj %></p>
+        <p><strong class="font-medium">Razão Social: </strong><%= install.corporateName %></p>
+        <p><strong class="font-medium">Endereço: </strong><%= install.address%>, <%= install.installationNumber%> - <%= install.installationBairro%> - <%= install.installationCity%> - <%= install.installationState%> - <%= install.installationCep%></p>
+      </div>
+      <div class="flex flex-col items-stretch">
+        <p><strong class="font-medium">CCM: </strong><%= install.ccmInstallation %></p>
+        <p><strong class="font-medium">IE: </strong><%= install.ieInstallation %></p>
+        <p><strong class="font-medium">Nome: </strong><%= install.installationName%></p>
+      </div>
+      <div class="flex flex-col items-stretch">
+        <p><strong class="font-medium">E-mail: </strong><%= install.installationEmail%></p>
+        <p><strong class="font-medium">Tel. Fixo: </strong> <%= install.installationTelFixo%></p>
+        <p><strong class="font-medium">Celular: </strong><%= install.installationCel%></p>
+      </div>
     </div>
-    <div class="flex flex-col items-stretch">
-      <p><strong class="font-medium">CCM: </strong>Isento</p>
-      <p><strong class="font-medium">IE: </strong>IE</p>
-      <p><strong class="font-medium">Nome: </strong><%= date.clientRequests.clientName%></p>
-    </div>
-    <div class="flex flex-col items-stretch">
-      <p><strong class="font-medium">E-mail: </strong><%= date.clientRequests.clientEmail%></p>
-      <p><strong class="font-medium">Tel. Fixo: </strong> <%= date.clientRequests.clientTelephone%></p>
-      <p><strong class="font-medium">Celular: </strong>1198989898</p>
-    </div>
-  </div>
+  <% }) %>
   <hr >
   <div class="obs">
-    <h4 class="text-base font-semibold mt-5">Observações para NFiscal</h4>
+    <h4 class="text-base font-semibold mt-17">Observações para NFiscal</h4>
     <table class="border-collapse table-auto">
       <tr>
         <td class="border p-5 w-screen "><%= date.noteForInvoice%></td>

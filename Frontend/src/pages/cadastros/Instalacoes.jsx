@@ -1,21 +1,21 @@
-import React from 'react';
-import Grid from '@mui/material/Unstable_Grid2';
-import { Fab, TextField } from '@mui/material';
-import { Add, DeleteOutline } from '@mui/icons-material';
-import { useFieldArray, useFormContext } from 'react-hook-form';
-import { toast } from 'react-toastify';
+import React from "react";
+import Grid from "@mui/material/Unstable_Grid2";
+import { Fab, TextField } from "@mui/material";
+import { Add, DeleteOutline } from "@mui/icons-material";
+import { useFieldArray, useFormContext } from "react-hook-form";
+import { toast } from "react-toastify";
 
 export default function Instalacoes() {
   const { register, control } = useFormContext();
   const { fields, append, remove } = useFieldArray({
     control,
-    name: 'installation',
+    name: "installation",
   });
 
   const handleClickAdd = (e) => {
     e.preventDefault();
     append({
-      installationCep: '',
+      installationCep: "",
     });
   };
 
@@ -24,14 +24,14 @@ export default function Instalacoes() {
       container
       rowSpacing={3}
       columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-      sx={{ width: '100%', height: 'auto' }}
+      sx={{ width: "100%", height: "auto" }}
     >
       {fields.map((field, index) => (
         <Grid
           container
           rowSpacing={3}
           columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          sx={{ width: '100%', height: 'auto' }}
+          sx={{ width: "100%", height: "auto" }}
           key={field.id}
         >
           <Grid xs={12} md={4} lg={2}>
@@ -104,6 +104,46 @@ export default function Instalacoes() {
               {...register(`installation.${index}.installationState`)}
             />
           </Grid>
+          <Grid xs={6} md={5} lg={4.5}>
+            <TextField
+              id="outlined-basic"
+              name="corporateName"
+              fullWidth
+              label="Razão Social"
+              variant="outlined"
+              {...register(`installation.${index}.corporateName`)}
+            />
+          </Grid>
+          <Grid xs={6} md={5} lg={2.5}>
+            <TextField
+              id="outlined-basic"
+              name="ccmInstallation"
+              fullWidth
+              label="CCM"
+              variant="outlined"
+              {...register(`installation.${index}.ccmInstallation`)}
+            />
+          </Grid>
+          <Grid xs={6} md={5} lg={2.5}>
+            <TextField
+              id="outlined-basic"
+              name="ieInstallation"
+              fullWidth
+              label="IE"
+              variant="outlined"
+              {...register(`installation.${index}.ieInstallation`)}
+            />
+          </Grid>
+          <Grid xs={6} md={5} lg={2.5}>
+            <TextField
+              id="outlined-basic"
+              name="quantidadeRepInstallation"
+              fullWidth
+              label="Quantidade de REP"
+              variant="outlined"
+              {...register(`installation.${index}.quantidadeRepInstallation`)}
+            />
+          </Grid>
           <Grid xs={12} md={6} lg={3}>
             <TextField
               id="outlined-basic"
@@ -148,9 +188,9 @@ export default function Instalacoes() {
             xs={12}
             md={1}
             sx={{
-              display: 'flex',
-              justifyContent: 'space-around',
-              marginTop: '4px',
+              display: "flex",
+              justifyContent: "space-around",
+              marginTop: "4px",
             }}
           >
             <Fab
@@ -159,7 +199,7 @@ export default function Instalacoes() {
               size="medium"
               onClick={() =>
                 fields.length === 1
-                  ? toast.error('Campo não pode ser removido')
+                  ? toast.error("Campo não pode ser removido")
                   : remove(index)
               }
             >

@@ -1,30 +1,48 @@
-import React from 'react';
-import Grid from '@mui/material/Unstable_Grid2';
-import { Fab, IconButton, TextField } from '@mui/material';
-import { Add, DeleteOutline } from '@mui/icons-material';
-import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
-import { toast } from 'react-toastify';
+import React, { useEffect } from "react";
+import Grid from "@mui/material/Unstable_Grid2";
+import { Fab, IconButton, TextField } from "@mui/material";
+import { Add, DeleteOutline } from "@mui/icons-material";
+import { Controller, useFieldArray, useFormContext } from "react-hook-form";
+import { toast } from "react-toastify";
+import api from "../../services/axios";
 
-export default function Itens() {
+export default function Itens({ id }) {
   const { register, control } = useFormContext();
   const { fields, append, remove } = useFieldArray({
     control,
-    name: 'itensPedido',
+    name: "itensPedido",
   });
 
   const handleClickAdd = (e) => {
     e.preventDefault();
     append({
-      productCode: '',
+      productCode: "",
     });
   };
+
+  useEffect(() => {
+    try {
+      api
+        .get(`/api/pedido/${id}`)
+        .then((respo) => {
+          respo.data?.productPedidos.length > fields.length
+            ? append(respo.data?.productPedidos)
+            : null;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  }, [id]);
 
   return (
     <Grid
       container
       rowSpacing={1}
       columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-      sx={{ height: 'auto' }}
+      sx={{ height: "auto" }}
     >
       {fields.map((field, index) => (
         <Grid
@@ -32,7 +50,7 @@ export default function Itens() {
           container
           rowSpacing={1}
           columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          sx={{ height: 'auto' }}
+          sx={{ height: "auto" }}
         >
           <Grid xs={12} md={4} lg={2}>
             <TextField
@@ -108,9 +126,9 @@ export default function Itens() {
             xs={12}
             md={1}
             sx={{
-              display: 'flex',
-              justifyContent: 'space-around',
-              marginTop: '4px',
+              display: "flex",
+              justifyContent: "space-around",
+              marginTop: "4px",
             }}
           >
             <Fab
@@ -119,7 +137,7 @@ export default function Itens() {
               size="medium"
               onClick={() =>
                 fields.length === 1
-                  ? toast.error('Campo não pode ser removido')
+                  ? toast.error("Campo não pode ser removido")
                   : remove(index)
               }
             >

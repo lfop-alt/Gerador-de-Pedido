@@ -3,10 +3,10 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Pedidos extends Model {
     static associate(models) {
-      this.hasMany(models.Installation, {
+      this.hasMany(models.productPedido, {
         foreignKey: 'pedidosId',
       });
-      this.hasMany(models.productPedido, {
+      this.hasMany(models.Installation, {
         foreignKey: 'pedidosId',
       });
       this.hasMany(models.Cobranca, {
@@ -30,9 +30,6 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'field cannot be empty',
         },
       },
-    },
-    telephone: {
-      type: DataTypes.STRING,
     },
     numberOfCollaborators: {
       type: DataTypes.INTEGER,

@@ -1,23 +1,29 @@
-import React from 'react';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Unstable_Grid2';
-import { Controller, useFormContext } from 'react-hook-form';
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import React from "react";
+import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Unstable_Grid2";
+import { Controller, useFormContext } from "react-hook-form";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 export default function EnderecoPrinc() {
-  const { register, control, getValues } = useFormContext();
-  console.log(getValues('plano'));
+  const { control } = useFormContext();
+
   return (
     <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
       <Grid xs={12} md={6}>
-        <TextField
-          id="link-pipe"
-          label="Pipedrive"
-          variant="outlined"
+        <Controller
           name="pipedriveUrl"
-          helperText="Codigo do cliente do Pipedrive."
-          fullWidth
-          {...register('pipedriveUrl')}
+          control={control}
+          render={({ field }) => (
+            <TextField
+              id="link-pipe"
+              label="Pipedrive"
+              variant="outlined"
+              name="pipedriveUrl"
+              helperText="Codigo do cliente do Pipedrive."
+              fullWidth
+              {...field}
+            />
+          )}
         />
       </Grid>
       <Grid xs={12} md={3}>
@@ -40,15 +46,15 @@ export default function EnderecoPrinc() {
       </Grid>
       <Grid xs={12} md={3}>
         <Controller
-          name="nomeVendedor"
+          name="sallerName"
           defaultValue=""
           control={control}
           render={({ field }) => (
             <TextField
-              id="nomeVendedor"
+              id="sallerName"
               label="Nome do Vendedor"
               variant="outlined"
-              name="nomeVendedor"
+              name="sallerName"
               fullWidth
               {...field}
             />
@@ -200,12 +206,19 @@ export default function EnderecoPrinc() {
         />
       </Grid>
       <Grid xs={4} md={3} lg={2}>
-        <TextField
-          id="outlined-basic"
-          fullWidth
-          label="Fidelidade"
-          variant="outlined"
-          {...register('fidelity')}
+        <Controller
+          name="fidelity"
+          defaultValue=""
+          control={control}
+          render={({ field }) => (
+            <TextField
+              id="outlined-basic"
+              fullWidth
+              label="Fidelidade"
+              variant="outlined"
+              {...field}
+            />
+          )}
         />
       </Grid>
       <Grid xs={4} md={3} lg={2}>
@@ -227,22 +240,27 @@ export default function EnderecoPrinc() {
       <Grid xs={6} md={3} lg={2}>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Plano</InputLabel>
-          <Select
-            defaultValue={getValues('plano')}
-            labelId="plano-select-label"
-            id="planos"
-            label="Plano"
+          <Controller
             name="plano"
-            {...register('plano')}
-          >
-            <MenuItem value="">
-              <em>Selecione</em>
-            </MenuItem>
-            <MenuItem value="lite">Lite</MenuItem>
-            <MenuItem value="pró">Pró</MenuItem>
-            <MenuItem value="plus">Plus</MenuItem>
-            <MenuItem value="premium">Premium</MenuItem>
-          </Select>
+            defaultValue=""
+            control={control}
+            render={({ field }) => (
+              <Select
+                labelId="plano-select-label"
+                id="planos"
+                label="Plano"
+                {...field}
+              >
+                <MenuItem value="">
+                  <em>Selecione</em>
+                </MenuItem>
+                <MenuItem value="lite">Lite</MenuItem>
+                <MenuItem value="pró">Pró</MenuItem>
+                <MenuItem value="plus">Plus</MenuItem>
+                <MenuItem value="premium">Premium</MenuItem>
+              </Select>
+            )}
+          />
         </FormControl>
       </Grid>
       <Grid xs={6} md={3} lg={2}>
@@ -250,21 +268,27 @@ export default function EnderecoPrinc() {
           <InputLabel id="condicoes-pagamento-select-label">
             Condições de Pagamento
           </InputLabel>
-          <Select
-            defaultValue={getValues('plano')}
-            labelId="condicoes-pagamento-select-label"
-            id="condicoes-pagamento"
-            label="Condições de Pagamento"
-            {...register('condiçãoOfPpagament')}
-          >
-            <MenuItem value="">
-              <em>Selecione</em>
-            </MenuItem>
-            <MenuItem value="12x">12X sem juros</MenuItem>
-            <MenuItem value="avista">A Vista</MenuItem>
-            <MenuItem value="boleto">Boleto</MenuItem>
-            <MenuItem value="bonificado">Bonificado</MenuItem>
-          </Select>
+          <Controller
+            name="condiçãoOfPpagament"
+            defaultValue=""
+            control={control}
+            render={({ field }) => (
+              <Select
+                labelId="condicoes-pagamento-select-label"
+                id="condicoes-pagamento"
+                label="Condições de Pagamento"
+                {...field}
+              >
+                <MenuItem value="">
+                  <em>Selecione</em>
+                </MenuItem>
+                <MenuItem value="12x">12X sem juros</MenuItem>
+                <MenuItem value="avista">A Vista</MenuItem>
+                <MenuItem value="boleto">Boleto</MenuItem>
+                <MenuItem value="bonificado">Bonificado</MenuItem>
+              </Select>
+            )}
+          />
         </FormControl>
       </Grid>
       <Grid xs={6} md={3} lg={2}>
@@ -272,17 +296,24 @@ export default function EnderecoPrinc() {
           <InputLabel id="condicoes-serasa-select-label">
             Condições Serasa
           </InputLabel>
-          <Select
-            defaultValue="boa"
-            labelId="condicoes-serasa-select-label"
-            id="condicoes-serasa"
+          <Controller
             name="serasaConditions"
-            label="Condições Serasa"
-            {...register('serasaConditions')}
-          >
-            <MenuItem value="boa">Boa</MenuItem>
-            <MenuItem value="ruim">Ruim</MenuItem>
-          </Select>
+            defaultValue=""
+            control={control}
+            render={({ field }) => (
+              <Select
+                defaultValue="boa"
+                labelId="condicoes-serasa-select-label"
+                id="condicoes-serasa"
+                name="serasaConditions"
+                label="Condições Serasa"
+                {...field}
+              >
+                <MenuItem value="boa">Boa</MenuItem>
+                <MenuItem value="ruim">Ruim</MenuItem>
+              </Select>
+            )}
+          />
         </FormControl>
       </Grid>
       <Grid xs={6} md={2} lg={2}>
@@ -322,81 +353,23 @@ export default function EnderecoPrinc() {
           <InputLabel id="doc-assinado-select-label">
             Assinado Digitalmente
           </InputLabel>
-          <Select
-            defaultValue="sim"
-            labelId="doc-assinado-select-label"
-            id="doc-assinado"
-            label="Assinado Digitalmente"
-            {...register('documentoAssinado')}
-          >
-            <MenuItem value="sim">Sim</MenuItem>
-            <MenuItem value="nao">Não</MenuItem>
-          </Select>
+          <Controller
+            name="digitallySigned"
+            defaultValue=""
+            control={control}
+            render={({ field }) => (
+              <Select
+                labelId="doc-assinado-select-label"
+                id="doc-assinado"
+                label="Assinado Digitalmente"
+                {...field}
+              >
+                <MenuItem value="sim">Sim</MenuItem>
+                <MenuItem value="nao">Não</MenuItem>
+              </Select>
+            )}
+          />
         </FormControl>
-      </Grid>
-      <Grid xs={12} md={5} lg={3}>
-        <Controller
-          name="emailDeCobranca"
-          defaultValue=""
-          control={control}
-          render={({ field }) => (
-            <TextField
-              id="emailDeCobranca"
-              fullWidth
-              label="E-mail de Cobrança"
-              variant="outlined"
-              {...field}
-            />
-          )}
-        />
-      </Grid>
-      <Grid xs={12} md={5} lg={3}>
-        <Controller
-          name="nomeDeCobranca"
-          defaultValue=""
-          control={control}
-          render={({ field }) => (
-            <TextField
-              id="outlined-basic"
-              fullWidth
-              label="Nome de Cobrança"
-              variant="outlined"
-              {...field}
-            />
-          )}
-        />
-      </Grid>
-      <Grid xs={6} md={3.5} lg={3}>
-        <Controller
-          name="telephone"
-          defaultValue=""
-          control={control}
-          render={({ field }) => (
-            <TextField
-              id="telephone"
-              fullWidth
-              label="Telefone Fixo de Cobrança"
-              variant="outlined"
-              {...field}
-            />
-          )}
-        />
-      </Grid>
-      <Grid xs={6} md={3.5} lg={3}>
-        <Controller
-          name="celularDeCobranca"
-          defaultValue=""
-          control={control}
-          render={({ field }) => (
-            <TextField
-              id="celularDeCobranca"
-              fullWidth
-              label="Telefone Celular de Cobrança"
-              variant="outlined"
-              {...field}
-            />
-          )}
-        />
       </Grid>
     </Grid>
   );

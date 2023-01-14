@@ -1,9 +1,9 @@
 {
   "development": {
     "username": "root",
-    "password": "@controlid123",
-    "database": "controlid",
-    "host": "10.0.0.112",
+    "password": "CONTROLID123@",
+    "database": "Gerador",
+    "host": "52.12.79.173",
     "dialect": "mariadb"
   },
   "test": {

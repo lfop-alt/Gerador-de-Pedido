@@ -20,7 +20,6 @@ module.exports = {
           top: '6',
         },
       };
-      console.log('Aqui estou');
       const data = new Date();
       const corporate = String(date.corporateName);
       const corporate1 = corporate.replace(' ', '_');
@@ -28,12 +27,8 @@ module.exports = {
       const corporate3 = corporate2.replace(' ', '_');
 
       const nome = `./src/integrations/PDF/allPdfs/${corporate3}_${data.getDate()}${data.getMonth()}${data.getFullYear()}${data.getHours()}.pdf`;
-      console.log('Aqui estou2');
-      console.log(html);
-      console.log(path.join(__dirname, './template', './pdf.ejs'));
       pdf.create(html, option).toFile(nome, null);
 
-      console.log('Final');
     });
 
     const corporate = String(date.corporateName);

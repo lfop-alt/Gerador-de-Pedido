@@ -10,15 +10,20 @@ const routers = require('./src/routers');
 const app = express();
 
 app.set('view engine', 'ejs');
-app.use(cors());
 
-// app.use((req, res, next) => {
-//   res.header('Access-Control-Allow-Origin', '*');
-//   res.header('Access-Control-Allow-Methods', 'OPTIONS,GET, POST');
-//   res.header('Access-Control-Allow-Headers: *');
-//   app.use(cors());
-//   next();
-// });
+// const corsOptions = {
+//   origin: "*",
+//   optionsSuccessStatus: 204
+// }
+// app.use(cors(corsOptions));
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", '*')
+    res.header("Access-Control-Allow-Methods", 'POST', 'GET', 'PUT')
+    app.use(cors())
+    next();
+});
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.json());

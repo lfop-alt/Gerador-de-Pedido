@@ -7,33 +7,12 @@ module.exports = {
         return res.status(400).json({ message: 'Date Incorrect' });
       }
 
-      const {
-        pedidosId,
-        cnpjCobranca,
-        corporateNameCobranca,
-        AddressCobranca,
-        ieCobranca,
-        ccmCobranca,
-        QuantidadeCobranca,
-        nameCobranca,
-        emailCobranca,
-        telFixoCobranca,
-        celularCobranca,
-      } = data;
+      const { pedidosId } = data;
+      const date = data.cobranca;
 
-      await Cobranca.create({
-        pedidosId,
-        cnpjCobranca,
-        corporateNameCobranca,
-        AddressCobranca,
-        ieCobranca,
-        ccmCobranca,
-        QuantidadeCobranca,
-        nameCobranca,
-        emailCobranca,
-        telFixoCobranca,
-        celularCobranca,
-      });
+      date.map(cobranca => cobranca.pedidosId = pedidosId)
+
+      await Cobranca.bulkCreate(date);
 
       return true;
     } catch (err) {
@@ -42,21 +21,23 @@ module.exports = {
   },
   async listOneCobranca(req, res) {
     try {
-      const id = req.params;
+      const { id } = req.params;
 
       if (!id) {
         return res.status(400).json({ message: 'iD Incorrect' });
       }
 
-      const cobranca = await Cobranca.findOne({
+      const cobranca = await Cobranca.findAll({
         where: {
-          id,
+          pedidosId: id
         },
       });
-
       return res.status(200).json(cobranca);
     } catch (e) {
       return res.status(400).json(e);
     }
   },
+  async editCobranca(req, res) {
+    
+  }
 };

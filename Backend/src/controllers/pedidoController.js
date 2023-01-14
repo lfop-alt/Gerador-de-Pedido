@@ -22,7 +22,6 @@ module.exports = {
       const {
         corporateName,
         cnpjFaturamento,
-        telephone,
         numberOfCollaborators,
         equipamentNumber,
         billingAddress,
@@ -46,10 +45,12 @@ module.exports = {
         sallerName,
       } = date;
 
+      
+      console.log(`estou aqui222 ${date.installation}`)
+
       const { id } = await Pedidos.create({
         corporateName,
         cnpj: cnpjFaturamento,
-        telephone,
         numberOfCollaborators,
         equipamentNumber,
         billingAddress,
@@ -73,19 +74,18 @@ module.exports = {
         statusClient: 'Novo',
         digitallySigned: documentoAssinado,
       });
-
       date.pedidosId = id;
       date.cobrancaId = id;
       date.productPedidoId = id;
 
-      const InstallationPedido = await installation.createInstallation(date, res);
-      if (InstallationPedido !== true) {
-        return res.status(400).json({ message: InstallationPedido });
-      }
-
+      
       const product = await productOfPedido.createProductPedido(date, res);
       if (product !== true) {
         return res.status(400).json({ message: product });
+      }
+      const InstallationPedido = await installation.createInstallation(date, res);
+      if (InstallationPedido !== true) {
+        return res.status(400).json({ message: InstallationPedido });
       }
 
       const cobrancaPedido = await cobranca.createCobranca(date, res);
@@ -95,7 +95,7 @@ module.exports = {
 
       return res.status(200).json({ message: 'create' });
     } catch (e) {
-      return console.log(e);
+      return console.log(e.message);
     }
   },
 
@@ -122,7 +122,6 @@ module.exports = {
       if (!id) {
         return res.status(400).json({ message: 'ID Incorrect' });
       }
-
       const pedido = await Pedidos.findByPk(id, {
         include: [
           { model: Installation },
@@ -184,8 +183,8 @@ module.exports = {
 
       const pedidos = await Pedidos.findByPk(id, {
         include: [
-          { model: Address },
-          { model: clientRequests },
+          { model: Installation },
+          { model: Cobranca },
           { model: productPedido },
         ],
       });

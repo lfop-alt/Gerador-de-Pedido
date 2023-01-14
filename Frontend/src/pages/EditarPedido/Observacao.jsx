@@ -1,45 +1,60 @@
-import React from 'react';
-import Grid from '@mui/material/Unstable_Grid2';
-import { useFormContext } from 'react-hook-form';
-import { Box, TextField } from '@mui/material';
+import React from "react";
+import Grid from "@mui/material/Unstable_Grid2";
+import { useFormContext, Controller } from "react-hook-form";
+import { Box, TextField } from "@mui/material";
 
 export default function Observacoes() {
-  const { register } = useFormContext();
+  const { control } = useFormContext();
 
   return (
-    <Box sx={{ width: '100%', height: '300px' }}>
+    <Box sx={{ width: "100%", height: "300px" }}>
       <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid xs={12}>
-          <TextField
-            id="financial-observation"
+          <Controller
             name="financialObservation"
-            label="Observação Financeiro"
-            rows={2}
-            fullWidth
-            multiline
-            {...register('financialObservation')}
+            control={control}
+            render={({ field }) => (
+              <TextField
+                id="financial-observation"
+                label="Observação Financeiro"
+                rows={2}
+                fullWidth
+                multiline
+                {...field}
+              />
+            )}
           />
         </Grid>
         <Grid xs={12}>
-          <TextField
-            id="accounting-observation"
+          <Controller
             name="accountingObservation"
-            label="Observação Contabil"
-            fullWidth
-            rows={2}
-            multiline
-            {...register('accountingObservation')}
+            control={control}
+            render={({ field }) => (
+              <TextField
+                id="accounting-observation"
+                label="Observação Contabil"
+                fullWidth
+                rows={2}
+                multiline
+                {...field}
+              />
+            )}
           />
         </Grid>
         <Grid xs={12}>
-          <TextField
-            id="installation-note"
+          <Controller
             name="installationNote"
-            label="Observação de Instalação"
-            fullWidth
-            rows={2}
-            multiline
-            {...register('installationNote')}
+            control={control}
+            render={({ field }) => (
+              <TextField
+                id="installation-note"
+                label="Observação de Instalação"
+                fullWidth
+                rows={2}
+                multiline
+                {...field}
+              />
+            )}
           />
         </Grid>
       </Grid>

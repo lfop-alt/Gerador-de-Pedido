@@ -1,45 +1,66 @@
-import React, { useEffect } from 'react';
-import Grid from '@mui/material/Unstable_Grid2';
-import PropTypes from 'prop-types';
-import { Fab, TextField } from '@mui/material';
-import { Add, DeleteOutline } from '@mui/icons-material';
-import { useFieldArray, useFormContext } from 'react-hook-form';
-import { toast } from 'react-toastify';
+import React, { useEffect, useState } from "react";
+import Grid from "@mui/material/Unstable_Grid2";
+import PropTypes from "prop-types";
+import { Fab, TextField } from "@mui/material";
+import { Add, DeleteOutline } from "@mui/icons-material";
+import { useFieldArray, useFormContext } from "react-hook-form";
+import { toast } from "react-toastify";
+import api from "../../services/axios";
 
-export default function Instalacoes({ tamanho }) {
+export default function Instalacoes({ id }) {
+  const [data, setData] = useState([]);
   const { register, control } = useFormContext();
   const { fields, append, remove } = useFieldArray({
     control,
-    name: 'installation',
+    name: "installation",
   });
 
   const handleClickAdd = (e) => {
     e.preventDefault();
     append({
-      installationCep: '',
+      installationCep: "",
     });
   };
+
   useEffect(() => {
-    for (let i = 0; i <= Number(tamanho); i += 1) {
-      append({
-        installationCep: '',
-      });
+    try {
+      api
+        .get(`/api/pedido/${id}`)
+        .then((respo) => {
+          respo.data?.Installations.length > fields.length
+            ? append(respo.data?.Installations)
+            : null;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (err) {
+      console.log(err);
     }
-  }, []);
+  }, [id]);
+
+  function deleteInstallation(index) {
+    if (fields.length === 1) {
+      return toast.error('"Campo não pode ser removido"');
+    } else {
+      remove(index);
+      dados.splice(index, 1);
+    }
+  }
 
   return (
     <Grid
       container
       rowSpacing={3}
       columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-      sx={{ width: '100%', height: 'auto' }}
+      sx={{ width: "100%", height: "auto" }}
     >
       {fields.map((field, index) => (
         <Grid
           container
           rowSpacing={3}
           columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          sx={{ width: '100%', height: 'auto' }}
+          sx={{ width: "100%", height: "auto" }}
           key={field.id}
         >
           <Grid xs={12} md={4} lg={2}>
@@ -112,6 +133,46 @@ export default function Instalacoes({ tamanho }) {
               {...register(`installation.${index}.installationState`)}
             />
           </Grid>
+          <Grid xs={6} md={5} lg={4.5}>
+            <TextField
+              id="outlined-basic"
+              name="corporateName"
+              fullWidth
+              label="Razão Social"
+              variant="outlined"
+              {...register(`installation.${index}.corporateName`)}
+            />
+          </Grid>
+          <Grid xs={6} md={5} lg={2.5}>
+            <TextField
+              id="outlined-basic"
+              name="ccmInstallation"
+              fullWidth
+              label="CCM"
+              variant="outlined"
+              {...register(`installation.${index}.ccmInstallation`)}
+            />
+          </Grid>
+          <Grid xs={6} md={5} lg={2.5}>
+            <TextField
+              id="outlined-basic"
+              name="ieInstallation"
+              fullWidth
+              label="IE"
+              variant="outlined"
+              {...register(`installation.${index}.ieInstallation`)}
+            />
+          </Grid>
+          <Grid xs={6} md={5} lg={2.5}>
+            <TextField
+              id="outlined-basic"
+              name="quantidadeRepInstallation"
+              fullWidth
+              label="Quantidade de REP"
+              variant="outlined"
+              {...register(`installation.${index}.quantidadeRepInstallation`)}
+            />
+          </Grid>
           <Grid xs={12} md={6} lg={3}>
             <TextField
               id="outlined-basic"
@@ -156,20 +217,16 @@ export default function Instalacoes({ tamanho }) {
             xs={12}
             md={1}
             sx={{
-              display: 'flex',
-              justifyContent: 'space-around',
-              marginTop: '4px',
+              display: "flex",
+              justifyContent: "space-around",
+              marginTop: "4px",
             }}
           >
             <Fab
               color="primary"
               aria-label="add"
               size="medium"
-              onClick={() =>
-                fields.length === 1
-                  ? toast.error('Campo não pode ser removido')
-                  : remove(index)
-              }
+              onClick={deleteInstallation}
             >
               <DeleteOutline />
             </Fab>

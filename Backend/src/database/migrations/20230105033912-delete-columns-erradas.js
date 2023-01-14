@@ -1,9 +1,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.addColumn('Addresses', 'CnpjInstalation', {
-      type: Sequelize.STRING,
-      allowNull: false,
-    });
+    await queryInterface.removeColumn('Cobrancas', 'QuantidadeCobranca');
+    await queryInterface.removeColumn('Pedidos', 'telephone');
   },
 
   async down(queryInterface, Sequelize) {
