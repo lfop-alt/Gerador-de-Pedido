@@ -1,21 +1,29 @@
-import React from 'react';
-import Grid from '@mui/material/Unstable_Grid2';
-import { Fab, IconButton, TextField } from '@mui/material';
-import { Add, DeleteOutline } from '@mui/icons-material';
-import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
-import { toast } from 'react-toastify';
+import React, { useEffect, useState } from "react";
+import Grid from "@mui/material/Unstable_Grid2";
+import { Fab, IconButton, TextField, Autocomplete } from "@mui/material";
+import { Add, DeleteOutline } from "@mui/icons-material";
+import { useFieldArray, useFormContext, Controller } from "react-hook-form";
+import { toast } from "react-toastify";
+import api from "../../services/axios";
 
 export default function Itens() {
+  const [produtos, setProdutos] = useState([]);
+  const [productDescript, setProductDescript] = useState([]);
+  const [newProducts, setNewproduct] = useState([]);
+  const [productCode, setProductCode] = useState("");
   const { register, control } = useFormContext();
   const { fields, append, remove } = useFieldArray({
     control,
-    name: 'itensPedido',
+    name: "itensPedido",
   });
+
+  // filtrar array de obj
+  // var filtrado = array. filter(function(obj) { return obj. marcar == 1; }); Que vai funcionar.
 
   const handleClickAdd = (e) => {
     e.preventDefault();
     append({
-      productCode: '',
+      productCode: "",
     });
   };
 
@@ -24,7 +32,7 @@ export default function Itens() {
       container
       rowSpacing={1}
       columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-      sx={{ height: 'auto' }}
+      sx={{ height: "auto" }}
     >
       {fields.map((field, index) => (
         <Grid
@@ -32,26 +40,26 @@ export default function Itens() {
           container
           rowSpacing={1}
           columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          sx={{ height: 'auto' }}
+          sx={{ height: "auto" }}
         >
-          <Grid xs={12} md={4} lg={2}>
+          <Grid xs={12} md={2} lg={2}>
             <TextField
-              id="codigoDoProduto"
+              id="productCode"
               label="Código"
               variant="outlined"
-              name="codigoDoProduto"
+              name="productCode"
               fullWidth
               {...register(`itensPedido.${index}.productCode`)}
             />
           </Grid>
-          <Grid xs={12} md={4} lg={2}>
+          <Grid xs={12} md={2} lg={2}>
             <TextField
-              id="descricaoDoProduto"
-              label="Descrição Comercial"
+              id="descricaoProduto"
+              label="Descrição"
               variant="outlined"
-              name="descricaoDoProduto"
+              name="descricaoProduto"
               fullWidth
-              {...register(`itensPedido.${index}.commercialDescription`)}
+              {...register(`itensPedido.${index}.descricaoProduto`)}
             />
           </Grid>
           <Grid xs={12} md={2} lg={1}>
@@ -108,9 +116,9 @@ export default function Itens() {
             xs={12}
             md={1}
             sx={{
-              display: 'flex',
-              justifyContent: 'space-around',
-              marginTop: '4px',
+              display: "flex",
+              justifyContent: "space-around",
+              marginTop: "4px",
             }}
           >
             <Fab
@@ -119,7 +127,7 @@ export default function Itens() {
               size="medium"
               onClick={() =>
                 fields.length === 1
-                  ? toast.error('Campo não pode ser removido')
+                  ? toast.error("Campo não pode ser removido")
                   : remove(index)
               }
             >

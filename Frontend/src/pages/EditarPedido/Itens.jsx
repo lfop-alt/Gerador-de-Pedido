@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import { Fab, IconButton, TextField } from "@mui/material";
 import { Add, DeleteOutline } from "@mui/icons-material";
@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import api from "../../services/axios";
 
 export default function Itens({ id }) {
+  const [produtos, setProdutos] = useState([]);
   const { register, control } = useFormContext();
   const { fields, append, remove } = useFieldArray({
     control,
@@ -19,6 +20,21 @@ export default function Itens({ id }) {
       productCode: "",
     });
   };
+
+  useEffect(() => {
+    try {
+      api
+        .get("/api/products")
+        .then((respo) => {
+          setProdutos(respo.data);
+        })
+        .catch((err) => {
+          console.log("problema");
+        });
+    } catch (err) {
+      console.log("ruim");
+    }
+  }, []);
 
   useEffect(() => {
     try {
