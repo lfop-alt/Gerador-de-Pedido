@@ -99,6 +99,38 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
     },
+    corporateName: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: 'field cannot be empty',
+        },
+      },
+    },
+    ccmInstallation: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: 'field cannot be empty',
+        },
+      },
+    },
+    ieInstallation: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: 'field cannot be empty',
+        },
+      },
+    },
+    quantidadeRepInstallation: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: 'field cannot be empty',
+        },
+      },
+    },
   }, {
     sequelize,
     modelName: 'Installation',

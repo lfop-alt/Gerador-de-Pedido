@@ -6,12 +6,12 @@ module.exports = {
       const { deal } = req.params;
 
       const { data } = await pipedrive.get(`deals/${deal}`);
-
+      console.log(data)
       const emailDeCobranca = data.data.person_id.email;
       const emailsDeCobranca = [];
 
       emailDeCobranca.map((email) => emailsDeCobranca.push({ email: email.value }));
-
+      
       const telephone = data.data.person_id.phone;
       const telephones = [];
 
@@ -27,7 +27,7 @@ module.exports = {
         emailDeCobranca: emailsDeCobranca,
         nomeDeCobranca: data.data.person_id.name,
         telephone: telephones,
-        cnpj: cnpj.replace(/[^0-9]+/g, ''),
+        cnpj: cnpj === null ? 'Falta CNPJ' : cnpj.replace(/[^0-9]+/g, ''),
         nomeVendedor: data.data.user_id.name,
       });
     } catch (err) {

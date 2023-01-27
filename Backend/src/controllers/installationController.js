@@ -11,7 +11,7 @@ module.exports = {
 
       // eslint-disable-next-line no-return-assign, no-param-reassign
       data.map((install) => install.pedidosId = pedidosId);
-
+      console.log(data)
       await Installation.bulkCreate(data);
 
       return true;
