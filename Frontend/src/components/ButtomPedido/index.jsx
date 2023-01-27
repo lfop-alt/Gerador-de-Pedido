@@ -1,23 +1,23 @@
-import React, { useState } from 'react';
-import { Box, Button, ButtonGroup } from '@mui/material';
+import React, { useState } from "react";
+import { Box, Button, ButtonGroup } from "@mui/material";
 
-import Itens from '../../pages/cadastros/Itens';
-import Instalacoes from '../../pages/cadastros/Instalacoes';
-import Observacoes from '../../pages/cadastros/Observacao';
-import Cobranca from '../../pages/cadastros/Cobranca';
+import Itens from "../../pages/cadastros/Itens";
+import Instalacoes from "../../pages/cadastros/Instalacoes";
+import Observacoes from "../../pages/cadastros/Observacao";
+import Cobranca from "../../pages/cadastros/Cobranca";
 
 export default function ButtomSelect({ productsOptions }) {
-  const [button, setButton] = useState('cobranca');
+  const [button, setButton] = useState("cobranca");
 
   function buttons(buttonSelect) {
     switch (buttonSelect) {
-      case 'cobranca':
+      case "cobranca":
         return <Cobranca />;
-      case 'instalacao':
+      case "instalacao":
         return <Instalacoes />;
-      case 'observacoes':
+      case "observacoes":
         return <Observacoes />;
-      case 'itens':
+      case "itens":
         return <Itens productsOptions={productsOptions} />;
       default:
         return null;
@@ -29,10 +29,10 @@ export default function ButtomSelect({ productsOptions }) {
       <Box
         xs={12}
         sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'start',
-          '& > *': {
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "start",
+          "& > *": {
             mt: 2,
             mb: 4,
           },
@@ -43,13 +43,12 @@ export default function ButtomSelect({ productsOptions }) {
           size="large"
           aria-label="text button group"
         >
-          <Button onClick={() => setButton('cobranca')}>Cobrança</Button>
-          <Button onClick={() => setButton('instalacao')}>Instalação</Button>
-          <Button onClick={() => setButton('observacoes')}>Observações</Button>
-          <Button onClick={() => setButton('itens')}>Produtos</Button>
+          <Button onClick={() => setButton("cobranca")}>Cobrança</Button>
+          <Button onClick={() => setButton("instalacao")}>Instalação</Button>
+          <Button onClick={() => setButton("observacoes")}>Observações</Button>
+          <Button onClick={() => setButton("itens")}>Produtos</Button>
         </ButtonGroup>
       </Box>
-      {console.log('Estou aqui')}
       <Box>{buttons(button)}</Box>
     </Box>
   );

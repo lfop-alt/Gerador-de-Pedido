@@ -1,22 +1,21 @@
-import React from 'react';
+import React from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
-} from 'react-router-dom';
+} from "react-router-dom";
 
-import CadastrarProduto from '../pages/CadastrarProdutos';
-import CadastrarPedidos from '../pages/cadastros/cadastrarPedidos';
-import Pedido from '../pages/Pedidos';
-import Produtos from '../pages/Produtos';
-import EditarProduto from '../pages/EditarProdutos';
-import EditarPedido from '../pages/EditarPedido';
-import Login from '../pages/Login';
-import { isAuthenticated } from '../services/auth';
+import CadastrarProduto from "../pages/CadastrarProdutos";
+import CadastrarPedidos from "../pages/cadastros/cadastrarPedidos";
+import Pedido from "../pages/Pedidos";
+import Produtos from "../pages/Produtos";
+import EditarProduto from "../pages/EditarProdutos";
+import EditarPedido from "../pages/EditarPedido";
+import Login from "../pages/Login";
+import { isAuthenticated } from "../services/auth";
 
 export default function AplicationRouters() {
-  // eslint-disable-next-line react/no-unstable-nested-components
   function PrivateRoute({ children }) {
     const isAuthenticate = isAuthenticated();
     return isAuthenticate ? children : <Navigate to="/login" />;

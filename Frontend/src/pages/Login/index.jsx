@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import '@fontsource/roboto/400.css';
+import React, { useState } from "react";
+import "@fontsource/roboto/400.css";
 
-import { TextField, Box, Button } from '@mui/material';
-import { ToastContainer, toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { TextField, Box, Button } from "@mui/material";
+import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
-import api from '../../services/axios';
+import api from "../../services/axios";
 
 export default function Login() {
   const [email, setEmail] = useState();
@@ -15,45 +15,45 @@ export default function Login() {
   const handleSubmitLogin = async () => {
     try {
       if (!email || !password) {
-        return toast.error('E-mail e Senha Incorreto');
+        return toast.error("E-mail e Senha Incorreto");
       }
 
       const user = { email, password };
-      const response = await api.post('/api/login', user);
+      const response = await api.post("/api/login", user);
 
-      localStorage.setItem('token', response.data.token);
-      return navigate('/');
+      localStorage.setItem("token", response.data.token);
+      return navigate("/");
     } catch (err) {
-      toast.error(err.response.data.message);
+      toast.error(err);
     }
   };
 
   return (
     <Box
       sx={{
-        height: '95vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: '20px',
+        height: "95vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: "20px",
       }}
     >
       <Box
         sx={{
-          width: '65vh',
-          background: '#F0F8FF',
-          height: '55vh',
-          borderRadius: '20px',
+          width: "65vh",
+          background: "#F0F8FF",
+          height: "55vh",
+          borderRadius: "20px",
         }}
       >
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            background: '#3d3d3d',
-            padding: '30px',
-            borderTopLeftRadius: '20px',
-            borderTopRightRadius: '20px',
+            display: "flex",
+            justifyContent: "center",
+            background: "#3d3d3d",
+            padding: "30px",
+            borderTopLeftRadius: "20px",
+            borderTopRightRadius: "20px",
           }}
         >
           <img
@@ -63,14 +63,14 @@ export default function Login() {
         </Box>
         <Box
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            fontFamily: 'Roboto',
-            alignItems: 'center',
-            height: '20vh',
-            marginTop: '60px',
-            marginBottom: '30px',
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            fontFamily: "Roboto",
+            alignItems: "center",
+            height: "20vh",
+            marginTop: "60px",
+            marginBottom: "30px",
           }}
         >
           <h2>Login</h2>
@@ -79,7 +79,7 @@ export default function Login() {
             name="email"
             variant="outlined"
             fullWidth
-            sx={{ width: '450px', marginBottom: '30px' }}
+            sx={{ width: "450px", marginBottom: "30px" }}
             onChange={(e) => {
               setEmail(e.target.value);
             }}
@@ -92,7 +92,7 @@ export default function Login() {
             name="senha"
             variant="outlined"
             fullWidth
-            sx={{ width: '450px', marginBottom: '30px' }}
+            sx={{ width: "450px", marginBottom: "30px" }}
             onChange={(e) => {
               setPassword(e.target.value);
             }}
@@ -102,10 +102,10 @@ export default function Login() {
         </Box>
         <Box
           sx={{
-            marginBottom: '30px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            marginBottom: "30px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
           <Button variant="contained" size="large" onClick={handleSubmitLogin}>
@@ -114,12 +114,12 @@ export default function Login() {
         </Box>
         <Box
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            fontFamily: 'Roboto',
-            alignItems: 'center',
-            marginTop: '20px',
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            fontFamily: "Roboto",
+            alignItems: "center",
+            marginTop: "20px",
           }}
         >
           <h4>Caso esqueça a senha, entre em contato com o Administrador</h4>
